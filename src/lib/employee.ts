@@ -1,6 +1,6 @@
 import { Equal } from 'typeorm'
 import { getConnection } from '../database/config'
-import { Employee } from '../entities/employee'
+import { Employee } from '../database/entities/employee'
 
 const getEmployeeRepository = async () => (await getConnection()).getRepository(Employee)
 /**

@@ -1,32 +1,38 @@
-import {
-  createEmployee,
-  EmployeeData,
-  getAllEmployees,
-  getEmployeesByDateCreated
-} from '../lib/employee'
+import { Employee } from '../database/entities/employee'
+import { checkIn, CheckOut } from '../lib/check'
+import { createEmployee, EmployeeData } from '../lib/employee'
 
-test('It should create an Employee', async () => {
-  const expected: EmployeeData = {
+let employee: Employee
+const checkInDate = new Date()
+const checkoutDate = new Date(checkInDate.getTime() + 8 * 3600 * 1000) // 8 hours after checkin
+console.log(checkInDate, checkoutDate)
+
+beforeAll(async () => {
+  const data: EmployeeData = {
     name: 'Saadallah',
     firstName: 'Wassim',
     department: 'Sales'
   }
-  const result = await createEmployee(expected)
-  expect(result).toBeDefined()
-  expect(result.name).toBe(expected.name)
+  employee = await createEmployee(data)
 })
 
-test('It should list all employees', async () => {
-  const result = await getAllEmployees()
+test('It should checkin an employee', async () => {
+  const result = await checkIn({ employeeId: employee.id, comment: 'All Good!', date: checkInDate })
+  console.log(result)
   expect(result).toBeDefined()
-  expect(result).toBeInstanceOf(Array)
-  expect(result.length).toBeGreaterThan(0)
-  console.log(result.length, result)
+  expect(result.checkin).toEqual(checkInDate)
+  expect(result.checkout).toBeFalsy()
 })
 
-test('It should list all employees by date created', async () => {
-  const result = await getEmployeesByDateCreated(new Date())
+test('It should checkout an employee', async () => {
+  const result = await CheckOut(employee.id, checkoutDate)
+  console.log(result)
   expect(result).toBeDefined()
-  expect(result).toBeInstanceOf(Array)
-  expect(result.length).toBeGreaterThan(0)
+  expect(result.checkin).toEqual(checkInDate)
+  expect(result.checkout).toEqual(checkoutDate)
+  expect(result.duration).toBe(8 * 3600 * 1000)
 })
+
+// TODO: add test 'it should fail checkin on missing fields'
+// TODO: add test 'it should fail checkout if there is no checkin'
+// TODO: add test 'it should fail checkout when employee does not exists'

@@ -30,3 +30,6 @@ test('It should list all employees by date created', async () => {
   expect(result).toBeInstanceOf(Array)
   expect(result.length).toBeGreaterThan(0)
 })
+
+// TODO: add test 'it should fail if mandatory fields are missing'
+// TODO: add test 'it should return an empty array on nonexistant date'

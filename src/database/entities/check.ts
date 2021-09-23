@@ -7,22 +7,23 @@ export class Check {
   @PrimaryColumn()
   id: string = v4()
 
-  // when an employee checks in, we we create a check record
-  // so the checkin date is the date of the creation
+  // when an employee checks in and doesnt provide a date
+  // we persume that it is the current time
   @Column()
-  checkin: Date = new Date()
+  checkin!: Date;
 
-  @Column()
+  @Column({ nullable: true })
   checkout!: Date
 
-  @Column()
+  @Column({ nullable: true })
   comment!: string
 
   // this column stores the difference between the checkin and checkout times
   // and stores it as a timestamp difference
-  @Column()
+  @Column({ nullable: true })
   duration!: number
 
+  // lazy loaded
   @ManyToOne(() => Employee, (employee) => employee.checks)
   employee!: Employee
 }

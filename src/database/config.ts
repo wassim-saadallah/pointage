@@ -1,5 +1,8 @@
+import 'reflect-metadata'
+
 import { createConnection, Connection } from 'typeorm'
-import { Employee } from '../entities/employee'
+import { Employee } from './entities/employee'
+import { Check } from './entities/check'
 
 let connection: Connection
 
@@ -9,10 +12,11 @@ export async function getConnection() {
     connection = await createConnection({
       type: 'sqlite',
       database: './db.sqlite',
-      entities: [Employee],
+      entities: [Employee, Check],
       // TODO: replace with migrations in production
       synchronize: true,
-      logging: true
+      logging: true,
+      logger: 'file'
     })
   return connection
 }
