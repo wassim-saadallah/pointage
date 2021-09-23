@@ -1,6 +1,11 @@
-# pointage
+# Pointage
+
+## Assignement
+
+Read [the assignment](Node_Mid.md)
 
 ## Todo
+
 - [ ] create a test for checkin/checkout
 - [ ] create routes for employees
 - [ ] create routes for checkin/checkout
