@@ -1,6 +1,7 @@
 import { Equal } from 'typeorm'
 import { getConnection } from '../database/config'
 import { Employee } from '../database/entities/employee'
+import { EmployeeInputType } from '../schemas/employee'
 
 const getEmployeeRepository = async () => (await getConnection()).getRepository(Employee)
 /**
@@ -11,14 +12,8 @@ const getEmployeeRepository = async () => (await getConnection()).getRepository(
 const dateToSqliteDate = (date: Date): string =>
   date.toISOString().replace('T', ' ').replace('Z', '')
 
-export interface EmployeeData {
-  name: string
-  firstName: string
-  dateCreated?: Date
-  department: string
-}
 
-export async function createEmployee(employee: EmployeeData): Promise<Employee> {
+export async function createEmployee(employee: EmployeeInputType): Promise<Employee> {
   const repository = await getEmployeeRepository()
   const newEmployee = repository.create(employee)
   return repository.save(newEmployee)

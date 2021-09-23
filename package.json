@@ -10,12 +10,14 @@
     "test": "jest dist",
     "start": "fastify start -l info dist/app.js",
     "dev": "fastify start -w -l info -P dist/app.js",
-    "build": "tsc -w"
+    "build:dev": "tsc -w",
+    "build:prod": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sinclair/typebox": "^0.20.5",
     "fastify": "^3.0.0",
     "fastify-autoload": "^3.3.1",
     "fastify-cli": "^2.13.0",

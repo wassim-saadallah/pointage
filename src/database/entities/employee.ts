@@ -21,5 +21,5 @@ export class Employee {
 
   // lazy loaded checks, because we don't need them always
   @OneToMany(() => Check, (check) => check.employee)
-  checks!: Promise<Check[]>
+  checks?: Promise<Check[]>
 }

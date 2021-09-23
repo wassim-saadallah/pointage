@@ -1,6 +1,7 @@
 import { Employee } from '../database/entities/employee'
 import { checkIn, CheckOut } from '../lib/check'
-import { createEmployee, EmployeeData } from '../lib/employee'
+import { createEmployee } from '../lib/employee'
+import { EmployeeInputType } from '../schemas/employee'
 
 let employee: Employee
 const checkInDate = new Date()
@@ -8,7 +9,7 @@ const checkoutDate = new Date(checkInDate.getTime() + 8 * 3600 * 1000) // 8 hour
 console.log(checkInDate, checkoutDate)
 
 beforeAll(async () => {
-  const data: EmployeeData = {
+  const data: EmployeeInputType = {
     name: 'Saadallah',
     firstName: 'Wassim',
     department: 'Sales'

@@ -1,12 +1,13 @@
 import {
   createEmployee,
-  EmployeeData,
   getAllEmployees,
   getEmployeesByDateCreated
 } from '../lib/employee'
 
+import { EmployeeInputType } from "../schemas/employee";
+
 test('It should create an Employee', async () => {
-  const expected: EmployeeData = {
+  const expected: EmployeeInputType = {
     name: 'Saadallah',
     firstName: 'Wassim',
     department: 'Sales'
