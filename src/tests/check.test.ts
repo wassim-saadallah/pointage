@@ -1,5 +1,5 @@
 import { Employee } from '../database/entities/employee'
-import { checkIn, CheckOut } from '../lib/check'
+import { checkIn, checkOut } from '../lib/check'
 import { createEmployee } from '../lib/employee'
 import { EmployeeInputType } from '../schemas/employee'
 
@@ -18,7 +18,11 @@ beforeAll(async () => {
 })
 
 test('It should checkin an employee', async () => {
-  const result = await checkIn({ employeeId: employee.id, comment: 'All Good!' })
+  const result = await checkIn({
+    employeeId: employee.id,
+    comment: 'All Good!',
+    date: checkInDate.toISOString()
+  })
   console.log(result)
   expect(result).toBeDefined()
   expect(result.checkin).toEqual(checkInDate)
@@ -26,10 +30,9 @@ test('It should checkin an employee', async () => {
 })
 
 test('It should checkout an employee', async () => {
-  const result = await CheckOut(employee.id, checkoutDate)
+  const result = await checkOut(employee.id, checkoutDate)
   console.log(result)
   expect(result).toBeDefined()
-  expect(result.checkin).toEqual(checkInDate)
   expect(result.checkout).toEqual(checkoutDate)
   expect(result.duration).toBe(8 * 3600 * 1000)
 })
