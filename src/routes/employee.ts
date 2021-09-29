@@ -35,8 +35,7 @@ export default async function (app: FastifyInstance) {
       }
     },
     async () => {
-      // TODO: change this type assertion
-      return (await getAllEmployees()) as unknown as EmployeesType
+      return (await getAllEmployees()) as EmployeesType
     }
   )
   app.get<{ Params: { date: string }; Reply: EmployeesType }>(
@@ -52,9 +51,8 @@ export default async function (app: FastifyInstance) {
       }
     },
     async (request) => {
-      // TODO: change this type assertion
       const dateCreated = new Date(request.params.date)
-      return (await getEmployeesByDateCreated(dateCreated)) as unknown as EmployeesType
+      return (await getEmployeesByDateCreated(dateCreated)) as EmployeesType
     }
   )
 }
