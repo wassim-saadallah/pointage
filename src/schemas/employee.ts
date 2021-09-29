@@ -4,7 +4,6 @@ export const EmployeeSchema = Type.Object({
   name: Type.String(),
   firstName: Type.String(),
   department: Type.String(),
-  dateCreated: Type.Optional(Type.String({ format: 'date' })) // date
 })
 
 export const EmployeesSchema = Type.Array(EmployeeSchema)

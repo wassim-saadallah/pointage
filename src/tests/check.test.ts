@@ -18,7 +18,7 @@ beforeAll(async () => {
 })
 
 test('It should checkin an employee', async () => {
-  const result = await checkIn({ employeeId: employee.id, comment: 'All Good!', date: checkInDate })
+  const result = await checkIn({ employeeId: employee.id, comment: 'All Good!' })
   console.log(result)
   expect(result).toBeDefined()
   expect(result.checkin).toEqual(checkInDate)
