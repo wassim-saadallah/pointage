@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import AutoLoad from 'fastify-autoload'
 import { join } from 'path'
 import fastifySwagger from 'fastify-swagger'
-import { EmployeeSchema } from './schemas/employee'
+import { EmployeeOutputSchema } from './schemas/employee'
 import fastifyCors from 'fastify-cors'
 
 export default async function (fastify: FastifyInstance) {
@@ -34,7 +34,7 @@ export default async function (fastify: FastifyInstance) {
         { name: 'checkin/checkout', description: 'Checkin/Checkout related end-points' }
       ],
       definitions: {
-        Employee: EmployeeSchema
+        Employee: EmployeeOutputSchema
       }
     },
     uiConfig: {

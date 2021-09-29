@@ -1,9 +1,10 @@
 import { FastifyInstance } from 'fastify'
 import { createEmployee, getAllEmployees, getEmployeesByDateCreated } from '../lib/employee'
 import {
+  EmployeeInputSchema,
   EmployeeInputType,
+  EmployeeOutputSchema,
   EmployeeOutputType,
-  EmployeeSchema,
   EmployeesSchema,
   EmployeesType
 } from '../schemas/employee'
@@ -13,15 +14,16 @@ export default async function (app: FastifyInstance) {
     '/employees',
     {
       schema: {
-        body: EmployeeSchema,
+        body: EmployeeInputSchema,
         response: {
-          200: EmployeeSchema
-        }
+          200: EmployeeOutputSchema
+        },
+        tags: ['employee']
       }
     },
     async (request, _) => {
-      // we can make the conversion because we validate our input
-      return (await createEmployee(request.body)) as EmployeeOutputType
+      // we can make the conversion because dates convert to strings in json
+      return (await createEmployee(request.body)) as unknown as EmployeeOutputType
     }
   )
 
@@ -31,11 +33,12 @@ export default async function (app: FastifyInstance) {
       schema: {
         response: {
           200: EmployeesSchema
-        }
+        },
+        tags: ['employee']
       }
     },
     async () => {
-      return (await getAllEmployees()) as EmployeesType
+      return (await getAllEmployees()) as unknown as EmployeesType
     }
   )
   app.get<{ Params: { date: string }; Reply: EmployeesType }>(
@@ -47,12 +50,13 @@ export default async function (app: FastifyInstance) {
         },
         response: {
           200: EmployeesSchema
-        }
+        },
+        tags: ['employee']
       }
     },
     async (request) => {
       const dateCreated = new Date(request.params.date)
-      return (await getEmployeesByDateCreated(dateCreated)) as EmployeesType
+      return (await getEmployeesByDateCreated(dateCreated)) as unknown as EmployeesType
     }
   )
 }

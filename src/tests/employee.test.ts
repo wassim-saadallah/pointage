@@ -26,7 +26,8 @@ test('It should list all employees', async () => {
 })
 
 test('It should list all employees by date created', async () => {
-  const result = await getEmployeesByDateCreated(new Date())
+  const today = new Date(new Date().toISOString().split('T')[0] as string)
+  const result = await getEmployeesByDateCreated(today)
   expect(result).toBeDefined()
   expect(result).toBeInstanceOf(Array)
   expect(result.length).toBeGreaterThan(0)

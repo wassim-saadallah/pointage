@@ -9,8 +9,8 @@ const getEmployeeRepository = async () => (await getConnection()).getRepository(
  *
  * see `getEmployeesByDateCreated`
  */
-const dateToSqliteDate = (date: Date): string =>
-  date.toISOString().replace('T', ' ').replace('Z', '')
+const jsDateToSqliteDate = (date: Date): string =>
+  date.toISOString().split('T')[0] as string
 
 
 export async function createEmployee(employee: EmployeeInputType): Promise<Employee> {
@@ -31,12 +31,11 @@ export async function getAllEmployees(): Promise<Employee[]> {
  * We only use the day, month and year per specification
  */
 export async function getEmployeesByDateCreated(dateCreated: Date): Promise<Employee[]> {
-  dateCreated = new Date(dateCreated.setHours(0, 0, 0, 0)) // round to nearest day
   console.log(dateCreated)
   const repository = await getEmployeeRepository()
   return repository.find({
     where: {
-      dateCreated: Equal(dateToSqliteDate(dateCreated)) // format date to database date
+      dateCreated: Equal(jsDateToSqliteDate(dateCreated)) // format date to database date
     }
   })
 }
