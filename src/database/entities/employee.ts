@@ -13,7 +13,7 @@ export class Employee {
   @Column()
   firstName!: string
 
-  @Column()
+  @Column({ type: 'date' })
   dateCreated: Date = new Date(new Date().setHours(0, 0, 0, 0))
 
   @Column()
