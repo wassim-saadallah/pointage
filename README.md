@@ -9,10 +9,9 @@ Read [the assignment](Node_Mid.md)
 - [x] create a test for checkin/checkout
 - [x] create routes for employees
 - [x] create routes for checkin/checkout
-  - [ ] investigate schema error but still validate in /checkout
-- [ ] integration tests (using node-fetch): scenario definition and execution
-- [ ] refactor code (add documentation where necessary)
-  - [ ] Add failing tests
+  - [x] investigate schema error but still validate in /checkout: no explanation yet
+- [x] integration tests (using node-fetch): scenario definition and execution
+- [x] refactor code (add documentation where necessary)
 - [x] add swagger API docuemntation
 - [ ] add dockerfile
-- [ ] add Makefile to build the whole project
+  - [ ] add .env and according changes

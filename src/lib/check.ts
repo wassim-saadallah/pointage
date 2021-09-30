@@ -13,6 +13,10 @@ export async function checkIn(checkin: CheckinType): Promise<Check> {
   const employeeRepository = await getEmployeeRepository()
   const employee = await employeeRepository.findOne({ where: { id: checkin.employeeId } })
   if (!employee) return Promise.reject('No employee with id : ' + checkin.employeeId)
+  const pointage = await checkRepository.findOne({ employee }, { order: { checkin: 'DESC' } })
+  // if the employee didn't check in before he checks out, we return an error
+  console.log(pointage)
+  if (pointage) return Promise.reject('No checkin twice for employee with id : ' + employee.id)
   const newCheckin = checkRepository.create({
     employee,
     comment: checkin.comment,
