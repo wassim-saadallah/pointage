@@ -11,9 +11,8 @@ export async function getConnection() {
   if (!connection)
     connection = await createConnection({
       type: 'sqlite',
-      database: './db.sqlite',
+      database: process.env['DATABASE_FILE'] as string,
       entities: [Employee, Check],
-      // TODO: replace with migrations in production
       synchronize: true,
       logging: true,
       logger: 'file'

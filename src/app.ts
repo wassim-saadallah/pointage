@@ -5,8 +5,12 @@ import fastifySwagger from 'fastify-swagger'
 import { EmployeeOutputSchema } from './schemas/employee'
 import fastifyCors from 'fastify-cors'
 
-export default async function (fastify: FastifyInstance) {
+// load env variable
+import dotenv from 'dotenv'
+if (process.env['ENV'] === 'dev') dotenv.config({ path: './dev.env' })
+else dotenv.config()
 
+export default async function (fastify: FastifyInstance) {
   // allow CORS
   // for testing reasons we added full access
   fastify.register(fastifyCors)
