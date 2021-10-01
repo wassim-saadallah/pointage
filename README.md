@@ -36,7 +36,7 @@ $ npm run test:e2e
 ```bash
 $ cd pointage
 $ docker build -t pointage .
-$ docker run pointage
+$ docker run -d -p3000:3000 pointage
 ```
 
 ## Todo
